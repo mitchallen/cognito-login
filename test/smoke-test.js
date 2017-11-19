@@ -57,11 +57,11 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then(function(obj){
+        .then( obj => {
             should.exist(obj);
             done();
         })
-        .catch( function(err) { 
+        .catch( err => { 
             console.error(err); 
             done(err);  // to pass on err, remove err (done() - no arguments)
         });
@@ -72,10 +72,10 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then(function(obj) {
+        .then( obj=> {
             return obj.health();
         })
-        .then(function(result) {
+        .then( result => {
             result.should.eql("OK");
             done();
         })
@@ -90,20 +90,20 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then(function(obj) {
+        .then( obj => {
             return obj.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD 
             });
         })
-        .then( function(token) {
+        .then( token => {
             // console.log(token);
             // jwt.decode will return null if not a valid token
             var obj = jwt.decode(token);
             should.exist(obj);
             done();
         })
-        .catch( function(err) { 
+        .catch( err => { 
             console.error(err);
             done(err); 
         });
@@ -114,13 +114,13 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then(function(obj) {
+        .then( obj => {
             return obj.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD 
             });
         })
-        .then( function(token) {
+        .then( token => {
             var obj = jwt.decode(token);
             should.exist(obj);
             // console.log(JSON.stringify(obj));
@@ -136,7 +136,7 @@ describe('module factory smoke test', () => {
             should.exist(obj.email);
             done();
         })
-        .catch( function(err) { 
+        .catch( err => { 
             console.error(err);
             done(err); 
         });
@@ -147,20 +147,20 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then(function(obj) {
+        .then( obj => {
             return obj.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD 
             });
         })
-        .then( function(token) {
+        .then( token => {
             var obj = jwt.decode(token);
             should.exist(obj);
             should.exist(obj.email);
             obj.email.should.eql(COGNITO_TEST_USER);
             done();
         })
-        .catch( function(err) { 
+        .catch( err => { 
             console.error(err);
             done(err); 
         });
@@ -171,13 +171,13 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then(function(obj) {
+        .then( obj => {
             return obj.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD 
             });
         })
-        .then( function(token) {
+        .then( token => {
             var obj = jwt.decode(token);
             should.exist(obj);
             should.exist(obj.email);
@@ -185,7 +185,7 @@ describe('module factory smoke test', () => {
             obj['cognito:username'].should.eql(COGNITO_TEST_USER);
             done();
         })
-        .catch( function(err) { 
+        .catch( err => { 
             console.error(err);
             done(err); 
         });
@@ -196,13 +196,13 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then(function(obj) {
+        .then( obj => {
             return obj.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD 
             });
         })
-        .then( function(token) {
+        .then( token => {
             var obj = jwt.decode(token);
             should.exist(obj);
             should.exist(obj.email);
@@ -226,13 +226,13 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then(function(obj) {
+        .then( obj => {
             return obj.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD 
             });
         })
-        .then( function(token) {
+        .then( token => {
             var obj = jwt.decode(token);
             should.exist(obj);
             should.exist(obj.email_verified);
@@ -240,7 +240,7 @@ describe('module factory smoke test', () => {
             obj.email_verified.should.eql(true);
             done();
         })
-        .catch( function(err) { 
+        .catch( err => { 
             console.error(err);
             done(err); 
         });
@@ -252,13 +252,13 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then(function(obj) {
+        .then( obj => {
             return obj.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD 
             });
         })
-        .then( function(token) {
+        .then( token => {
             var obj = jwt.decode(token);
             should.exist(obj);
             should.exist(obj.email_verified);
@@ -266,7 +266,7 @@ describe('module factory smoke test', () => {
             obj.token_use.should.eql('id');
             done();
         })
-        .catch( function(err) { 
+        .catch( err => { 
             console.error(err);
             done(err); 
         });
@@ -277,21 +277,21 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then(function(obj) {
+        .then( obj => {
             return obj.login({
                 username: 'bogus',    
                 password: COGNITO_TEST_PASSWORD 
             });
         })
-        .then( function(token) {
+        .then( token => {
             done(err);  // changed done() to done(err) because exception should have been thrown
         })
-        .catch( function(err) { 
+        .catch( err => { 
             // To avoid unhandledPromiseRejectionWarning in catch tests,
             // need to return err object and let next then block process it
             return err; 
         })
-        .then(function(err) {   
+        .then( err => {   
             // yes, picking err from previous catch
             // this avoids unhandled rejection error if something below fails
             // console.log(JSON.stringify(err));
@@ -302,7 +302,7 @@ describe('module factory smoke test', () => {
             err.statusCode.should.eql(400);
             done();
         })
-        .catch( function(err) { 
+        .catch( err => { 
             done(err);
         });
     });
@@ -319,22 +319,22 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then(function(obj) {
+        .then( obj => {
             testObject = obj;
             return obj.login({
                 username: COGNITO_TEST_USER,    
                 password: 'bogus' 
             });
         })
-        .then( function(token) {
+        .then( token => {
             done(err);  // changed done() to done(err) because exception should have been thrown
         })
-        .catch( function(err) { 
+        .catch( err => { 
             // To avoid unhandledPromiseRejectionWarning in catch tests,
             // need to return err object and let next then block process it
             return err; 
         })
-        .then(function(err) {   
+        .then( err => {   
             // yes, picking err from previous catch
             // this avoids unhandled rejection error if something below fails
             // console.log(JSON.stringify(err));
@@ -345,17 +345,17 @@ describe('module factory smoke test', () => {
             err.statusCode.should.eql(400);
             // done();
         })
-        .then(function() {
+        .then( () => {
             // Try again with valid password so we don't trigger 'too many invalid' error
             return testObject.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD
             });
         })
-        .then( function() {
+        .then( () => {
             done();
         })
-        .catch( function(err) { 
+        .catch( err => { 
             console.log(JSON.stringify(err));
             // cleanup issue, the second login triggers 'Password attempts exceeded'
             done(err);
@@ -371,21 +371,21 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: bogusClientId
         })
-        .then(function(obj) {
+        .then( obj => {
             return obj.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD 
             });
         })
-        .then( function(token) {
+        .then( token => {
             done(err);  // changed done() to done(err) because exception should have been thrown
         })
-        .catch( function(err) { 
+        .catch( err => { 
             // To avoid unhandledPromiseRejectionWarning in catch tests,
             // need to return err object and let next then block process it
             return err; 
         })
-        .then(function(err) {   
+        .then( err => {   
             // yes, picking err from previous catch
             // this avoids unhandled rejection error if something below fails
             // console.log(JSON.stringify(err));
@@ -396,7 +396,7 @@ describe('module factory smoke test', () => {
             err.statusCode.should.eql(400);
             done();
         })
-        .catch( function(err) { 
+        .catch( err => { 
             done(err);
         });
     });
