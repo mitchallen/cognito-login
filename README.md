@@ -1,6 +1,6 @@
 @mitchallen/cognito-login
 ==
-PUT DESCRIPTION HERE
+AWS Cognito login module
 --
 
 <p align="left">
@@ -29,6 +29,121 @@ PUT DESCRIPTION HERE
 * * *
 
 ## Usage
+
+TODO
+
+* * *
+
+## Creating a Test User
+
+To create a test user you need to do the following:
+
+* Install and setup aws-cli (the aws command line interface)
+* Set some environment variables
+* Call an api to signup the test user
+* Call an api to confirm the test users signup
+
+### Install and setup aws-cli
+
+TODO:
+
+### Set Testing Environment Variables
+
+```
+export COGNITO_TEST_USER_POOL_ID=(Cognito user pool id)
+export COGNITO_TEST_CLIENT_ID=(Cognito client id)
+export COGNITO_TEST_REGION=(Cognito region)
+export COGNITO_TEST_IDENTITY_POOL_ID=(Cognito identity pool id)
+export COGNITO_TEST_USER=(user email)
+export COGNITO_TEST_PASSWORD=(user password)
+```
+
+#### On a Mac
+
+Add the lines above to ```~/.bash_profile.``
+Then at the command line run this command:
+
+```
+$ source ~/.bash_profile
+```
+
+### Signup the user from the command line
+
+#### On a Mac
+
+To create a test user based on the environment variables, run this from the command line (minus the __$__):
+
+```
+$ aws cognito-idp sign-up --client-id $COGNITO_TEST_CLIENT_ID --region $COGNITO_TEST_REGION --username $COGNITO_TEST_USER --password $COGNITO_TEST_PASSWORD --user-attributes Name=email,Value=$COGNITO_TEST_USER 
+```
+
+Once the test user is signed up, the next step below is to use an admin command to confirm the user from the command line.
+
+### Admin Confirm User Signup from the command line
+
+```
+$ aws cognito-idp admin-confirm-sign-up --user-pool-id $COGNITO_TEST_USER_POOL_ID --region $COGNITO_TEST_REGION --username $COGNITO_TEST_USER
+```
+
+* * *
+
+## Additional Cognito API Notes
+
+See: http://docs.aws.amazon.com/cli/latest/reference/cognito-idp/index.html#cli-aws-cognito-idp
+
+### Forgot Password
+
+```
+$ aws cognito-idp forgot-password --client-id $COGNITO_TEST_CLIENT_ID --username $COGNITO_TEST_USER --region $COGNITO_TEST_REGION
+```
+
+This will cause an email with a verification code to be sent to the user.
+
+To change the password, take the confirmation code from the email and plugin it into this command line, along with the new password parameter:
+
+```
+$ aws cognito-idp confirm-forgot-password  --client-id $COGNITO_TEST_CLIENT_ID --username $COGNITO_TEST_USER --region $COGNITO_TEST_REGION --password (new password) --confirmation-code (verification code) 
+```
+
+Note that for testing you can currently use the old password as the new password, unless Cognito has been configured to now allow that.
+
+* * *
+
+### Enable a user that has been disabled:
+
+```
+$ aws cognito-idp admin-enable-user --user-pool-id $COGNITO_TEST_USER_POOL_ID --region $COGNITO_TEST_REGION --username $COGNITO_TEST_USER
+```
+
+### Dealing with FORCE\_CHANGE\_PASSWORD
+
+See: 
+
+* https://stackoverflow.com/questions/40287012/how-to-change-user-status-force-change-password
+* http://docs.aws.amazon.com/cli/latest/reference/cognito-idp/admin-respond-to-auth-challenge.html
+
+TODO: describe how to get session:
+
+```
+$ aws cognito-idp admin-respond-to-auth-challenge --user-pool-id $COGNITO_TEST_USER_POOL_ID --client-id $COGNITO_TEST_CLIENT_ID --region $COGNITO_TEST_REGION --challenge-name NEW_PASSWORD_REQUIRED --challenge-responses USERNAME=$COGNITO_TEST_USER,NEW_PASSWORD=Test1234! --session (TODO)
+```
+
+### Create User
+
+For test users it is simpler to use steps listed far above to just use sign-up followed by admin-confirm-sign-up.
+
+The command below requires a few more hoops to get the user enabled. 
+
+```
+$ aws cognito-idp admin-create-user --user-pool-id $COGNITO_TEST_USER_POOL_ID --region $COGNITO_TEST_REGION --username $COGNITO_TEST_USER ----temporary-password (some temp password)
+```
+
+TODO: Instructions for: User must then enter temp password with new password in signup.
+
+
+
+
+* * *
 
 ## Testing
 

@@ -93,17 +93,17 @@ module.exports.create = ({ userPoolId, clientId }) => {
                 const userPool = new CognitoUserPool({
                     UserPoolId: userPoolId,
                     ClientId: clientId
-                  });
-              
-                  const authenticationData = {
+                });
+            
+                const authenticationData = {
                     Username: username,
                     Password: password
-                  };
+                };
               
-                  const user = new CognitoUser({ Username: username, Pool: userPool });
-                  const authenticationDetails = new AuthenticationDetails(authenticationData);
+                const user = new CognitoUser({ Username: username, Pool: userPool });
+                const authenticationDetails = new AuthenticationDetails(authenticationData);
               
-                  return new Promise((resolve, reject) => (
+                return new Promise((resolve, reject) => (
                     user.authenticateUser(authenticationDetails, {
                       onSuccess: (result) => resolve(result.getIdToken().getJwtToken()),
                       onFailure: (err) => reject(err),
