@@ -37,15 +37,16 @@ var amazonCognitoIdentityJs = _dereq_('amazon-cognito-identity-js'),
 * @param {Object} spec Named parameters object
 * @returns {Promise} that resolves to {module:cognito-login}
 * @example <caption>Usage example</caption>
-   var factory = require("@mitchallen/cognito-login");
-
-   factory.create({})
-   .then(function(obj) {
-       return obj.health();
-   })
-   .catch( function(err) { 
-       console.error(err); 
-   });
+* var factory = require("@mitchallen/cognito-login");
+* 
+* factory.create({
+*     userPoolId: COGNITO_TEST_USER_POOL_ID,
+*     clientId: COGNITO_TEST_CLIENT_ID
+* })
+* .then( obj => obj.login({ ... }) )
+* .catch( err => { 
+*     console.error(err);
+* });
 */
 module.exports.create = function (_ref) {
     var userPoolId = _ref.userPoolId,
@@ -74,26 +75,26 @@ module.exports.create = function (_ref) {
               * @instance
               * @memberof module:cognito-login
               * @example <caption>Usage Example</caption>
-                var factory = require("@mitchallen/cognito-login");
-             
-                factory.create({
-                    userPoolId: COGNITO_TEST_USER_POOL_ID,
-                    clientId: COGNITO_TEST_CLIENT_ID
-                })
-                .then( obj => obj.login({
-                        username: COGNITO_TEST_USER,    
-                        password: COGNITO_TEST_PASSWORD 
-                    })
-                )
-                .then( token => {
-                    // console.log(token);
-                    // user has successfully logged in
-                    // update state or redux store
-                })
-                .catch( err => { 
-                    console.error(err);
-                    // login failed 
-                });
+              * var factory = require("@mitchallen/cognito-login");
+              * 
+              * factory.create({
+              *     userPoolId: COGNITO_TEST_USER_POOL_ID,
+              *     clientId: COGNITO_TEST_CLIENT_ID
+              * })
+              * .then( obj => obj.login({
+              *         username: COGNITO_TEST_USER,    
+              *         password: COGNITO_TEST_PASSWORD 
+              *     })
+              * )
+              * .then( token => {
+              *     // console.log(token);
+              *     // user has successfully logged in
+              *     // update state or redux store
+              * })
+              * .catch( err => { 
+              *     console.error(err);
+              *     // login failed 
+              * });
             */
             login: function login(_ref2) {
                 var username = _ref2.username,

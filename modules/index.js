@@ -36,15 +36,16 @@ var amazonCognitoIdentityJs = require('amazon-cognito-identity-js'),
  * @param {Object} spec Named parameters object
  * @returns {Promise} that resolves to {module:cognito-login}
  * @example <caption>Usage example</caption>
-    var factory = require("@mitchallen/cognito-login");
- 
-    factory.create({})
-    .then(function(obj) {
-        return obj.health();
-    })
-    .catch( function(err) { 
-        console.error(err); 
-    });
+ * var factory = require("@mitchallen/cognito-login");
+ * 
+ * factory.create({
+ *     userPoolId: COGNITO_TEST_USER_POOL_ID,
+ *     clientId: COGNITO_TEST_CLIENT_ID
+ * })
+ * .then( obj => obj.login({ ... }) )
+ * .catch( err => { 
+ *     console.error(err);
+ * });
  */
 module.exports.create = ({ userPoolId, clientId }) => {
 
@@ -68,26 +69,26 @@ module.exports.create = ({ userPoolId, clientId }) => {
               * @instance
               * @memberof module:cognito-login
               * @example <caption>Usage Example</caption>
-                var factory = require("@mitchallen/cognito-login");
-             
-                factory.create({
-                    userPoolId: COGNITO_TEST_USER_POOL_ID,
-                    clientId: COGNITO_TEST_CLIENT_ID
-                })
-                .then( obj => obj.login({
-                        username: COGNITO_TEST_USER,    
-                        password: COGNITO_TEST_PASSWORD 
-                    })
-                )
-                .then( token => {
-                    // console.log(token);
-                    // user has successfully logged in
-                    // update state or redux store
-                })
-                .catch( err => { 
-                    console.error(err);
-                    // login failed 
-                });
+              * var factory = require("@mitchallen/cognito-login");
+              * 
+              * factory.create({
+              *     userPoolId: COGNITO_TEST_USER_POOL_ID,
+              *     clientId: COGNITO_TEST_CLIENT_ID
+              * })
+              * .then( obj => obj.login({
+              *         username: COGNITO_TEST_USER,    
+              *         password: COGNITO_TEST_PASSWORD 
+              *     })
+              * )
+              * .then( token => {
+              *     // console.log(token);
+              *     // user has successfully logged in
+              *     // update state or redux store
+              * })
+              * .catch( err => { 
+              *     console.error(err);
+              *     // login failed 
+              * });
             */
             login: ({ username, password }) => {
                 const userPool = new CognitoUserPool({

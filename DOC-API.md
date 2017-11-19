@@ -33,26 +33,26 @@ Login
 **Kind**: instance method of <code>[cognito-login](#module_cognito-login)</code>  
 **Example** *(Usage Example)*  
 ```js
-                var factory = require("@mitchallen/cognito-login");
-             
-                factory.create({
-                    userPoolId: COGNITO_TEST_USER_POOL_ID,
-                    clientId: COGNITO_TEST_CLIENT_ID
-                })
-                .then( obj => obj.login({
-                        username: COGNITO_TEST_USER,    
-                        password: COGNITO_TEST_PASSWORD 
-                    })
-                )
-                .then( token => {
-                    // console.log(token);
-                    // user has successfully logged in
-                    // update state or redux store
-                })
-                .catch( err => { 
-                    console.error(err);
-                    // login failed 
-                });
+var factory = require("@mitchallen/cognito-login");
+
+factory.create({
+    userPoolId: COGNITO_TEST_USER_POOL_ID,
+    clientId: COGNITO_TEST_CLIENT_ID
+})
+.then( obj => obj.login({
+        username: COGNITO_TEST_USER,    
+        password: COGNITO_TEST_PASSWORD 
+    })
+)
+.then( token => {
+    // console.log(token);
+    // user has successfully logged in
+    // update state or redux store
+})
+.catch( err => { 
+    console.error(err);
+    // login failed 
+});
 ```
 <a name="module_cognito-login-factory"></a>
 
@@ -74,13 +74,14 @@ It takes one spec parameter that must be an object with named parameters
 
 **Example** *(Usage example)*  
 ```js
-    var factory = require("@mitchallen/cognito-login");
- 
-    factory.create({})
-    .then(function(obj) {
-        return obj.health();
-    })
-    .catch( function(err) { 
-        console.error(err); 
-    });
+var factory = require("@mitchallen/cognito-login");
+
+factory.create({
+    userPoolId: COGNITO_TEST_USER_POOL_ID,
+    clientId: COGNITO_TEST_CLIENT_ID
+})
+.then( obj => obj.login({ ... }) )
+.catch( err => { 
+    console.error(err);
+});
 ```
