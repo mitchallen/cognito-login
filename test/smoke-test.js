@@ -14,6 +14,11 @@ var request = require('supertest'),
     should = require('should'),
     modulePath = "../modules/index";
 
+var COGNITO_TEST_USER_POOL_ID = process.env.COGNITO_TEST_USER_POOL_ID,
+    COGNITO_TEST_CLIENT_ID = process.env.COGNITO_TEST_CLIENT_ID,
+    COGNITO_TEST_USER = process.env.COGNITO_TEST_USER,
+    COGNITO_TEST_PASSWORD = process.env.COGNITO_TEST_PASSWORD
+
 describe('module factory smoke test', () => {
 
     var _factory = null;
@@ -45,8 +50,11 @@ describe('module factory smoke test', () => {
         done();
     });
 
-    it('create method with no spec should return object', done => {
-        _factory.create()
+    it('create method with valid parameters should return object', done => {
+        _factory.create({
+            userPoolId: COGNITO_TEST_USER_POOL_ID,
+            clientId: COGNITO_TEST_CLIENT_ID
+        })
         .then(function(obj){
             should.exist(obj);
             done();
@@ -58,12 +66,39 @@ describe('module factory smoke test', () => {
     });
 
     it('health method should return ok', done => {
-        _factory.create({})
+        _factory.create({
+            userPoolId: COGNITO_TEST_USER_POOL_ID,
+            clientId: COGNITO_TEST_CLIENT_ID
+        })
         .then(function(obj) {
             return obj.health();
         })
         .then(function(result) {
             result.should.eql("OK");
+            done();
+        })
+        .catch( function(err) { 
+            console.error(err);
+            done(err); 
+        });
+    });
+
+    it('login method should return ok', done => {
+        _factory.create({
+            userPoolId: COGNITO_TEST_USER_POOL_ID,
+            clientId: COGNITO_TEST_CLIENT_ID
+        })
+        .then(function(obj) {
+            return obj.login({
+                username: COGNITO_TEST_USER,    // TODO - get form env
+                password: COGNITO_TEST_PASSWORD // TODO - get from env
+            });
+        })
+        .then(function(result) {
+            // result = token
+            // TODO - validate that it is a valid token
+            // result.should.eql("OK");
+            console.log(result);
             done();
         })
         .catch( function(err) { 

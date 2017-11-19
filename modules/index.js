@@ -8,6 +8,17 @@
 
 "use strict";
 
+// import {
+//     AuthenticationDetails,  
+//     CognitoUserPool,        
+//     CognitoUser            
+// } from 'amazon-cognito-identity-js';
+
+var amazonCognitoIdentityJs = require('amazon-cognito-identity-js'),
+    AuthenticationDetails = amazonCognitoIdentityJs.AuthenticationDetails,
+    CognitoUserPool = amazonCognitoIdentityJs.CognitoUserPool,
+    CognitoUser = amazonCognitoIdentityJs.CognitoUser;
+
 /**
  * Module
  * @module cognito-login
@@ -35,11 +46,9 @@
         console.error(err); 
     });
  */
-module.exports.create = (spec) => {
+module.exports.create = ({ userPoolId, clientId }) => {
 
     return new Promise((resolve, reject) => {
-
-        spec = spec || {};
 
         // reject("reason");
 
@@ -76,7 +85,32 @@ module.exports.create = (spec) => {
                 return new Promise((resolve,reject) => {
                     resolve("OK");
                 });
+            },
+
+            // TODO - put doc here
+
+            login: function({ username, password }) {
+                const userPool = new CognitoUserPool({
+                    UserPoolId: userPoolId,
+                    ClientId: clientId
+                  });
+              
+                  const authenticationData = {
+                    Username: username,
+                    Password: password
+                  };
+              
+                  const user = new CognitoUser({ Username: username, Pool: userPool });
+                  const authenticationDetails = new AuthenticationDetails(authenticationData);
+              
+                  return new Promise((resolve, reject) => (
+                    user.authenticateUser(authenticationDetails, {
+                      onSuccess: (result) => resolve(result.getIdToken().getJwtToken()),
+                      onFailure: (err) => reject(err),
+                    })
+                ));
             }
+            
         });
     });
 };
