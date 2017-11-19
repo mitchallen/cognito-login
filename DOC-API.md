@@ -24,13 +24,13 @@ Module
 ### cognito-login.package()
 Returns the package name
 
-**Kind**: instance method of <code>[cognito-login](#module_cognito-login)</code>  
+**Kind**: instance method of [<code>cognito-login</code>](#module_cognito-login)  
 <a name="module_cognito-login+login"></a>
 
 ### cognito-login.login(username, password)
 Login method.
 
-**Kind**: instance method of <code>[cognito-login](#module_cognito-login)</code>  
+**Kind**: instance method of [<code>cognito-login</code>](#module_cognito-login)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -70,7 +70,7 @@ Factory module
 ### cognito-login-factory.create(userPoolId, clientId) ⇒ <code>Promise</code>
 Factory method.
 
-**Kind**: static method of <code>[cognito-login-factory](#module_cognito-login-factory)</code>  
+**Kind**: static method of [<code>cognito-login-factory</code>](#module_cognito-login-factory)  
 **Returns**: <code>Promise</code> - that resolves to {module:cognito-login}  
 
 | Param | Type | Description |
