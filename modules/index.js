@@ -31,9 +31,9 @@ var amazonCognitoIdentityJs = require('amazon-cognito-identity-js'),
  */
 
  /** 
- * Factory method 
- * It takes one spec parameter that must be an object with named parameters
- * @param {Object} spec Named parameters object
+ * Factory method. 
+ * @param {string} userPoolId Cognito user pool id
+ * @param {string} clientId Cognito client id
  * @returns {Promise} that resolves to {module:cognito-login}
  * @example <caption>Usage example</caption>
  * var factory = require("@mitchallen/cognito-login");
@@ -64,10 +64,12 @@ module.exports.create = ({ userPoolId, clientId }) => {
               * @memberof module:cognito-login
             */
             package: () => _package,
-            /** Login
+            /** Login method.
               * @function
               * @instance
               * @memberof module:cognito-login
+              * @param {string} username Cognito user name
+              * @param {string} password Cognito user password
               * @example <caption>Usage Example</caption>
               * var factory = require("@mitchallen/cognito-login");
               * 

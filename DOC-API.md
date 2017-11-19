@@ -17,7 +17,7 @@ Module
 
 * [cognito-login](#module_cognito-login)
     * [.package()](#module_cognito-login+package)
-    * [.login()](#module_cognito-login+login)
+    * [.login(username, password)](#module_cognito-login+login)
 
 <a name="module_cognito-login+package"></a>
 
@@ -27,10 +27,16 @@ Returns the package name
 **Kind**: instance method of <code>[cognito-login](#module_cognito-login)</code>  
 <a name="module_cognito-login+login"></a>
 
-### cognito-login.login()
-Login
+### cognito-login.login(username, password)
+Login method.
 
 **Kind**: instance method of <code>[cognito-login](#module_cognito-login)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| username | <code>string</code> | Cognito user name |
+| password | <code>string</code> | Cognito user password |
+
 **Example** *(Usage Example)*  
 ```js
 var factory = require("@mitchallen/cognito-login");
@@ -61,16 +67,16 @@ Factory module
 
 <a name="module_cognito-login-factory.create"></a>
 
-### cognito-login-factory.create(spec) ⇒ <code>Promise</code>
-Factory method 
-It takes one spec parameter that must be an object with named parameters
+### cognito-login-factory.create(userPoolId, clientId) ⇒ <code>Promise</code>
+Factory method.
 
 **Kind**: static method of <code>[cognito-login-factory](#module_cognito-login-factory)</code>  
 **Returns**: <code>Promise</code> - that resolves to {module:cognito-login}  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| spec | <code>Object</code> | Named parameters object |
+| userPoolId | <code>string</code> | Cognito user pool id |
+| clientId | <code>string</code> | Cognito client id |
 
 **Example** *(Usage example)*  
 ```js
