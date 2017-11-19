@@ -17,7 +17,7 @@ Module
 
 * [cognito-login](#module_cognito-login)
     * [.package()](#module_cognito-login+package)
-    * [.health()](#module_cognito-login+health)
+    * [.login()](#module_cognito-login+login)
 
 <a name="module_cognito-login+package"></a>
 
@@ -25,25 +25,33 @@ Module
 Returns the package name
 
 **Kind**: instance method of <code>[cognito-login](#module_cognito-login)</code>  
-<a name="module_cognito-login+health"></a>
+<a name="module_cognito-login+login"></a>
 
-### cognito-login.health()
-Health check
+### cognito-login.login()
+Login
 
 **Kind**: instance method of <code>[cognito-login](#module_cognito-login)</code>  
 **Example** *(Usage Example)*  
 ```js
                 var factory = require("@mitchallen/cognito-login");
              
-                factory.create({})
-                .then(function(obj) {
-                    return obj.health();
+                factory.create({
+                    userPoolId: COGNITO_TEST_USER_POOL_ID,
+                    clientId: COGNITO_TEST_CLIENT_ID
                 })
-                .then(function(result) {
-                    console.log("HEALTH: ", result);
+                .then( obj => obj.login({
+                        username: COGNITO_TEST_USER,    
+                        password: COGNITO_TEST_PASSWORD 
+                    })
+                )
+                .then( token => {
+                    // console.log(token);
+                    // user has successfully logged in
+                    // update state or redux store
                 })
-                .catch( function(err) { 
-                    console.error(err); 
+                .catch( err => { 
+                    console.error(err);
+                    // login failed 
                 });
 ```
 <a name="module_cognito-login-factory"></a>

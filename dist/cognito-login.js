@@ -69,32 +69,32 @@ module.exports.create = function (_ref) {
             package: function _package() {
                 return _package2;
             },
-            /** Health check
+            /** Login
               * @function
               * @instance
               * @memberof module:cognito-login
               * @example <caption>Usage Example</caption>
                 var factory = require("@mitchallen/cognito-login");
              
-                factory.create({})
-                .then(function(obj) {
-                    return obj.health();
+                factory.create({
+                    userPoolId: COGNITO_TEST_USER_POOL_ID,
+                    clientId: COGNITO_TEST_CLIENT_ID
                 })
-                .then(function(result) {
-                    console.log("HEALTH: ", result);
+                .then( obj => obj.login({
+                        username: COGNITO_TEST_USER,    
+                        password: COGNITO_TEST_PASSWORD 
+                    })
+                )
+                .then( token => {
+                    // console.log(token);
+                    // user has successfully logged in
+                    // update state or redux store
                 })
-                .catch( function(err) { 
-                    console.error(err); 
+                .catch( err => { 
+                    console.error(err);
+                    // login failed 
                 });
             */
-            health: function health() {
-                return new Promise(function (resolve, reject) {
-                    resolve("OK");
-                });
-            },
-
-            // TODO - put doc here
-
             login: function login(_ref2) {
                 var username = _ref2.username,
                     password = _ref2.password;

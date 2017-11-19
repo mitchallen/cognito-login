@@ -67,22 +67,6 @@ describe('module factory smoke test', () => {
         });
     });
 
-    it('health method should return ok', done => {
-        _factory.create({
-            userPoolId: COGNITO_TEST_USER_POOL_ID,
-            clientId: COGNITO_TEST_CLIENT_ID
-        })
-        .then( obj=> obj.health() )
-        .then( result => {
-            result.should.eql("OK");
-            done();
-        })
-        .catch( function(err) { 
-            console.error(err);
-            done(err); 
-        });
-    });
-
     it('login method should return a valid token', done => {
         _factory.create({
             userPoolId: COGNITO_TEST_USER_POOL_ID,
