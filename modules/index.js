@@ -81,7 +81,7 @@ module.exports.create = ({ userPoolId, clientId }) => {
                     console.error(err); 
                 });
             */
-            health: function() {
+            health: () => {
                 return new Promise((resolve,reject) => {
                     resolve("OK");
                 });
@@ -89,7 +89,7 @@ module.exports.create = ({ userPoolId, clientId }) => {
 
             // TODO - put doc here
 
-            login: function({ username, password }) {
+            login: ({ username, password }) => {
                 const userPool = new CognitoUserPool({
                     UserPoolId: userPoolId,
                     ClientId: clientId

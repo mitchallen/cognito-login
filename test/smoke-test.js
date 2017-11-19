@@ -72,9 +72,7 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then( obj=> {
-            return obj.health();
-        })
+        .then( obj=> obj.health() )
         .then( result => {
             result.should.eql("OK");
             done();
@@ -90,12 +88,11 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then( obj => {
-            return obj.login({
+        .then( obj => obj.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD 
-            });
-        })
+            })
+        )
         .then( token => {
             // console.log(token);
             // jwt.decode will return null if not a valid token
@@ -114,12 +111,11 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then( obj => {
-            return obj.login({
+        .then( obj => obj.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD 
-            });
-        })
+            })
+        )
         .then( token => {
             var obj = jwt.decode(token);
             should.exist(obj);
@@ -147,12 +143,11 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then( obj => {
-            return obj.login({
+        .then( obj => obj.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD 
-            });
-        })
+            })
+        )
         .then( token => {
             var obj = jwt.decode(token);
             should.exist(obj);
@@ -171,12 +166,11 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then( obj => {
-            return obj.login({
+        .then( obj => obj.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD 
-            });
-        })
+            })
+        )
         .then( token => {
             var obj = jwt.decode(token);
             should.exist(obj);
@@ -196,12 +190,11 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then( obj => {
-            return obj.login({
+        .then( obj => obj.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD 
-            });
-        })
+            })
+        )
         .then( token => {
             var obj = jwt.decode(token);
             should.exist(obj);
@@ -226,12 +219,11 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then( obj => {
-            return obj.login({
+        .then( obj => obj.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD 
-            });
-        })
+            })
+        )
         .then( token => {
             var obj = jwt.decode(token);
             should.exist(obj);
@@ -252,12 +244,11 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then( obj => {
-            return obj.login({
+        .then( obj => obj.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD 
-            });
-        })
+            })
+        )
         .then( token => {
             var obj = jwt.decode(token);
             should.exist(obj);
@@ -277,20 +268,16 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
         })
-        .then( obj => {
-            return obj.login({
+        .then( obj => obj.login({
                 username: 'bogus',    
                 password: COGNITO_TEST_PASSWORD 
-            });
-        })
-        .then( token => {
-            done(err);  // changed done() to done(err) because exception should have been thrown
-        })
-        .catch( err => { 
-            // To avoid unhandledPromiseRejectionWarning in catch tests,
-            // need to return err object and let next then block process it
-            return err; 
-        })
+            })
+        )
+        // changed done() to done(err) because exception should have been thrown
+        .then( token => done(err) )  
+        // To avoid unhandledPromiseRejectionWarning in catch tests,
+        // need to return err object and let next then block process it
+        .catch( err => err )
         .then( err => {   
             // yes, picking err from previous catch
             // this avoids unhandled rejection error if something below fails
@@ -302,9 +289,7 @@ describe('module factory smoke test', () => {
             err.statusCode.should.eql(400);
             done();
         })
-        .catch( err => { 
-            done(err);
-        });
+        .catch( err =>  done(err) );
     });
 
     /*
@@ -371,20 +356,16 @@ describe('module factory smoke test', () => {
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: bogusClientId
         })
-        .then( obj => {
-            return obj.login({
+        .then( obj => obj.login({
                 username: COGNITO_TEST_USER,    
                 password: COGNITO_TEST_PASSWORD 
-            });
-        })
-        .then( token => {
-            done(err);  // changed done() to done(err) because exception should have been thrown
-        })
-        .catch( err => { 
-            // To avoid unhandledPromiseRejectionWarning in catch tests,
-            // need to return err object and let next then block process it
-            return err; 
-        })
+            })
+        )
+        // changed done() to done(err) because exception should have been thrown
+        .then( token => done(err) )
+        // To avoid unhandledPromiseRejectionWarning in catch tests,
+        // need to return err object and let next then block process it
+        .catch( err => err )
         .then( err => {   
             // yes, picking err from previous catch
             // this avoids unhandled rejection error if something below fails
@@ -396,8 +377,6 @@ describe('module factory smoke test', () => {
             err.statusCode.should.eql(400);
             done();
         })
-        .catch( err => { 
-            done(err);
-        });
+        .catch( err => done(err) );
     });
 });
