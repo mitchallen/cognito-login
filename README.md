@@ -85,7 +85,7 @@ export COGNITO_TEST_PASSWORD=(user password)
 
 #### On a Mac
 
-Add the lines above to ```~/.bash_profile.``
+Add the lines above to ```~/.bash_profile.```
 Then at the command line run this command:
 
 ```
@@ -262,8 +262,6 @@ $ aws cognito-idp admin-create-user --user-pool-id $COGNITO_TEST_USER_POOL_ID --
 TODO: Instructions for: User must then enter temp password with new password in signup.
 
 
-
-
 * * *
 
 ## Testing
@@ -289,6 +287,10 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * * *
 
 ## Version History
+
+#### Version 0.1.1
+
+* Fixed formatting error in doc
 
 #### Version 0.1.0 
 
