@@ -67,7 +67,7 @@ Factory module
 
 <a name="module_cognito-login-factory.create"></a>
 
-### cognito-login-factory.create(userPoolId, clientId) ⇒ <code>Promise</code>
+### cognito-login-factory.create(userPool, userPoolId, clientId) ⇒ <code>Promise</code>
 Factory method.
 
 **Kind**: static method of [<code>cognito-login-factory</code>](#module_cognito-login-factory)  
@@ -75,10 +75,23 @@ Factory method.
 
 | Param | Type | Description |
 | --- | --- | --- |
+| userPool | <code>Object</code> | Cognito user pool |
 | userPoolId | <code>string</code> | Cognito user pool id |
 | clientId | <code>string</code> | Cognito client id |
 
-**Example** *(Usage example)*  
+**Example** *(Use existing pool)*  
+```js
+var factory = require("@mitchallen/cognito-login");
+
+factory.create({
+    userPool: userPool 
+})
+.then( obj => obj.login({ ... }) )
+.catch( err => { 
+    console.error(err);
+});
+```
+**Example** *(Create pool from id&#x27;s example)*  
 ```js
 var factory = require("@mitchallen/cognito-login");
 

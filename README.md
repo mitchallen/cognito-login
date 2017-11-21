@@ -138,13 +138,13 @@ Module
 ### cognito-login.package()
 Returns the package name
 
-**Kind**: instance method of <code>[cognito-login](#module_cognito-login)</code>  
+**Kind**: instance method of [<code>cognito-login</code>](#module_cognito-login)  
 <a name="module_cognito-login+login"></a>
 
 ### cognito-login.login(username, password)
 Login method.
 
-**Kind**: instance method of <code>[cognito-login](#module_cognito-login)</code>  
+**Kind**: instance method of [<code>cognito-login</code>](#module_cognito-login)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -181,18 +181,31 @@ Factory module
 
 <a name="module_cognito-login-factory.create"></a>
 
-### cognito-login-factory.create(userPoolId, clientId) ⇒ <code>Promise</code>
+### cognito-login-factory.create(userPool, userPoolId, clientId) ⇒ <code>Promise</code>
 Factory method.
 
-**Kind**: static method of <code>[cognito-login-factory](#module_cognito-login-factory)</code>  
+**Kind**: static method of [<code>cognito-login-factory</code>](#module_cognito-login-factory)  
 **Returns**: <code>Promise</code> - that resolves to {module:cognito-login}  
 
 | Param | Type | Description |
 | --- | --- | --- |
+| userPool | <code>Object</code> | Cognito user pool |
 | userPoolId | <code>string</code> | Cognito user pool id |
 | clientId | <code>string</code> | Cognito client id |
 
-**Example** *(Usage example)*  
+**Example** *(Use existing pool)*  
+```js
+var factory = require("@mitchallen/cognito-login");
+
+factory.create({
+    userPool: userPool 
+})
+.then( obj => obj.login({ ... }) )
+.catch( err => { 
+    console.error(err);
+});
+```
+**Example** *(Create pool from id&#x27;s example)*  
 ```js
 var factory = require("@mitchallen/cognito-login");
 
@@ -287,6 +300,10 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * * *
 
 ## Version History
+
+#### Version 0.1.2
+
+* Can now initialize with existing pool instead of pool and client ids.
 
 #### Version 0.1.1
 

@@ -33,10 +33,21 @@ var amazonCognitoIdentityJs = _dereq_('amazon-cognito-identity-js'),
 
 /** 
 * Factory method. 
+* @param {Object} userPool Cognito user pool
 * @param {string} userPoolId Cognito user pool id
 * @param {string} clientId Cognito client id
 * @returns {Promise} that resolves to {module:cognito-login}
-* @example <caption>Usage example</caption>
+* @example <caption>Use existing pool</caption>
+* var factory = require("@mitchallen/cognito-login");
+* 
+* factory.create({
+*     userPool: userPool 
+* })
+* .then( obj => obj.login({ ... }) )
+* .catch( err => { 
+*     console.error(err);
+* });
+* @example <caption>Create pool from id's example</caption>
 * var factory = require("@mitchallen/cognito-login");
 * 
 * factory.create({
@@ -49,7 +60,8 @@ var amazonCognitoIdentityJs = _dereq_('amazon-cognito-identity-js'),
 * });
 */
 module.exports.create = function (_ref) {
-    var userPoolId = _ref.userPoolId,
+    var userPool = _ref.userPool,
+        userPoolId = _ref.userPoolId,
         clientId = _ref.clientId;
 
 
@@ -102,10 +114,13 @@ module.exports.create = function (_ref) {
                 var username = _ref2.username,
                     password = _ref2.password;
 
-                var userPool = new CognitoUserPool({
-                    UserPoolId: userPoolId,
-                    ClientId: clientId
-                });
+
+                if (!userPool) {
+                    userPool = new CognitoUserPool({
+                        UserPoolId: userPoolId,
+                        ClientId: clientId
+                    });
+                }
 
                 var authenticationData = {
                     Username: username,

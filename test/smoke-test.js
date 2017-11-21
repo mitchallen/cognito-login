@@ -15,6 +15,9 @@ var request = require('supertest'),
     jwt = require('jsonwebtoken'),
     modulePath = "../modules/index";
 
+var amazonCognitoIdentityJs = require('amazon-cognito-identity-js'),
+    CognitoUserPool = amazonCognitoIdentityJs.CognitoUserPool;
+
 var COGNITO_TEST_USER_POOL_ID = process.env.COGNITO_TEST_USER_POOL_ID,
     COGNITO_TEST_CLIENT_ID = process.env.COGNITO_TEST_CLIENT_ID,
     COGNITO_TEST_REGION = process.env.COGNITO_TEST_REGION,
@@ -24,6 +27,11 @@ var COGNITO_TEST_USER_POOL_ID = process.env.COGNITO_TEST_USER_POOL_ID,
 describe('module factory smoke test', () => {
 
     var _factory = null;
+
+    const testUserPool = new CognitoUserPool({
+        UserPoolId: COGNITO_TEST_USER_POOL_ID,
+        ClientId: COGNITO_TEST_CLIENT_ID
+    });
 
     before( done => {
         // Call before all tests
@@ -52,7 +60,7 @@ describe('module factory smoke test', () => {
         done();
     });
 
-    it('create method with valid parameters should return object', done => {
+    it('create method with valid id parameters should return object', done => {
         _factory.create({
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
@@ -67,10 +75,46 @@ describe('module factory smoke test', () => {
         });
     });
 
-    it('login method should return a valid token', done => {
+    it('create method with valid poolmparameter should return object', done => {
+        _factory.create({
+            userPool: testUserPool
+        })
+        .then( obj => {
+            should.exist(obj);
+            done();
+        })
+        .catch( err => { 
+            console.error(err); 
+            done(err);  // to pass on err, remove err (done() - no arguments)
+        });
+    });
+
+    it('login method should return a valid token when intialized with pool id\'s', done => {
         _factory.create({
             userPoolId: COGNITO_TEST_USER_POOL_ID,
             clientId: COGNITO_TEST_CLIENT_ID
+        })
+        .then( obj => obj.login({
+                username: COGNITO_TEST_USER,    
+                password: COGNITO_TEST_PASSWORD 
+            })
+        )
+        .then( token => {
+            // console.log(token);
+            // jwt.decode will return null if not a valid token
+            var obj = jwt.decode(token);
+            should.exist(obj);
+            done();
+        })
+        .catch( err => { 
+            console.error(err);
+            done(err); 
+        });
+    });
+
+    it('login method should return a valid token when initialized with existing pool ', done => {
+        _factory.create({
+            userPool: testUserPool
         })
         .then( obj => obj.login({
                 username: COGNITO_TEST_USER,    
